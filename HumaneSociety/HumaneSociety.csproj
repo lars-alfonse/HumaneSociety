@@ -46,21 +46,22 @@
   <ItemGroup>
     <Compile Include="Adopter.cs" />
     <Compile Include="Employee.cs" />
-    <Compile Include="HumaneSocietyDatabase.designer.cs">
+    <Compile Include="HumaneSociety.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HumaneSocietyDatabase.dbml</DependentUpon>
+      <DependentUpon>HumaneSociety.dbml</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="HumaneSocietyDatabase.dbml">
+    <None Include="HumaneSociety.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>HumaneSocietyDatabase.designer.cs</LastGenOutput>
+      <LastGenOutput>HumaneSociety.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -68,8 +69,8 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="HumaneSocietyDatabase.dbml.layout">
-      <DependentUpon>HumaneSocietyDatabase.dbml</DependentUpon>
+    <None Include="HumaneSociety.dbml.layout">
+      <DependentUpon>HumaneSociety.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

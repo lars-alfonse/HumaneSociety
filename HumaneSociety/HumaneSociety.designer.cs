@@ -22,7 +22,7 @@ namespace HumaneSociety
 	using System;
 	
 	
-	public partial class HumaneSocietyDatabaseDataContext : System.Data.Linq.DataContext
+	public partial class HumaneSocietyDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -31,25 +31,25 @@ namespace HumaneSociety
     partial void OnCreated();
     #endregion
 		
-		public HumaneSocietyDatabaseDataContext(string connection) : 
+		public HumaneSocietyDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public HumaneSocietyDatabaseDataContext(System.Data.IDbConnection connection) : 
+		public HumaneSocietyDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public HumaneSocietyDatabaseDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public HumaneSocietyDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public HumaneSocietyDatabaseDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public HumaneSocietyDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
