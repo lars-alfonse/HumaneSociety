@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace HumaneSociety
 {
-    class User
+    public class User
     {
+        protected string name;
     }
 }

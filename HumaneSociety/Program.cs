@@ -10,6 +10,13 @@ namespace HumaneSociety
     {
         static void Main(string[] args)
         {
+            Query.AddAnimal();
+            List<Animal> animals =  Query.GetAnimals();
+            foreach(Animal animal in animals)
+            {
+                Console.WriteLine(animal.name);
+            }
+            Console.ReadLine();
         }
     }
 }
