@@ -1,1 +1,2 @@
 D:\Documents\DevCodeCamp\HumaneSociety\HumaneSociety\bin\Debug\HumaneSociety.exe.config
+D:\Documents\DevCodeCamp\HumaneSociety\HumaneSociety\obj\Debug\HumaneSociety.csprojResolveAssemblyReference.cache

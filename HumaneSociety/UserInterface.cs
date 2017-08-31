@@ -8,5 +8,27 @@ namespace HumaneSociety
 {
     class UserInterface
     {
+        private string userInput;
+
+        public string UserInput
+        {
+            get
+            {
+                return userInput;
+            }
+        }
+
+        protected virtual void DisplayUserOptions()
+        {
+
+        }
+        protected virtual void GetUserInput()
+        {
+
+        }
+        public virtual void RunMenu()
+        {
+
+        }
     }
 }
