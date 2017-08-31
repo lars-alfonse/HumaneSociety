@@ -3,3 +3,4 @@ D:\Documents\DevCodeCamp\HumaneSociety\HumaneSociety\bin\Debug\HumaneSociety.exe
 D:\Documents\DevCodeCamp\HumaneSociety\HumaneSociety\bin\Debug\HumaneSociety.pdb
 D:\Documents\DevCodeCamp\HumaneSociety\HumaneSociety\obj\Debug\HumaneSociety.exe
 D:\Documents\DevCodeCamp\HumaneSociety\HumaneSociety\obj\Debug\HumaneSociety.pdb
+D:\Documents\DevCodeCamp\HumaneSociety\HumaneSociety\obj\Debug\HumaneSociety.csprojResolveAssemblyReference.cache

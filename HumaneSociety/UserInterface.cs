@@ -6,29 +6,27 @@ using System.Threading.Tasks;
 
 namespace HumaneSociety
 {
-    class UserInterface
+    public static class UserInterface
     {
-        private string userInput;
-
-        public string UserInput
+        public static void DisplayUserOptions(List<string> options)
         {
-            get
+            foreach(string option in options)
             {
-                return userInput;
+                Console.WriteLine(option);
             }
         }
-
-        protected virtual void DisplayUserOptions()
+        public static void DisplayUserOptions(string options)
         {
-
+            Console.WriteLine(options);
         }
-        protected virtual void GetUserInput()
+        public static string GetUserInput()
         {
-
-        }
-        public virtual void RunMenu()
-        {
-
+            string input = Console.ReadLine();
+            if(input.ToLower() == "exit")
+            {
+                //Environment.Exit();
+            }
+            return input;
         }
     }
 }

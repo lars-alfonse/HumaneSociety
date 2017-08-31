@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.375" name="HumaneSociety">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.875" name="HumaneSociety">
   <DataContextMoniker Name="/HumaneSocietyDataContext" />
   <nestedChildShapes>
     <classShape Id="6cd137d9-5174-4cf1-9344-4d3d5438d274" absoluteBounds="3, 0.5, 2, 1.3862939453125">
@@ -77,26 +77,26 @@
         <classShapeMoniker Id="63ada691-0072-47fd-8573-66210773615d" />
       </nodes>
     </associationConnector>
-    <classShape Id="fc372210-7ff7-4cfc-bc30-b55471d79d12" absoluteBounds="2.875, 6.75, 2, 1.7708968098958331">
+    <classShape Id="fc372210-7ff7-4cfc-bc30-b55471d79d12" absoluteBounds="3, 6, 2, 1.7708968098958331">
       <DataClassMoniker Name="/HumaneSocietyDataContext/UserAddress" />
       <nestedChildShapes>
-        <elementListCompartment Id="910f2069-7e34-45d2-b946-4d2942b7a228" absoluteBounds="2.8899999999999997, 7.2100000000000009, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="910f2069-7e34-45d2-b946-4d2942b7a228" absoluteBounds="3.0149999999999997, 6.4600000000000009, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.875 : 7.32774983723958); (2.5 : 7.32774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3 : 6.88544840494792); (2.5 : 6.88544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/HumaneSocietyDataContext/UserAddress/UserAddress_Client" />
       <nodes>
         <classShapeMoniker Id="fc372210-7ff7-4cfc-bc30-b55471d79d12" />
         <classShapeMoniker Id="e946fc75-00dc-4cb4-816b-a4b9fa6eb707" />
       </nodes>
     </associationConnector>
-    <classShape Id="f58c6cac-3cc7-447d-a9a6-3d9b845c878c" absoluteBounds="5.375, 7.75, 2, 1.3862939453125">
+    <classShape Id="f58c6cac-3cc7-447d-a9a6-3d9b845c878c" absoluteBounds="3, 8.25, 2, 1.3862939453125">
       <DataClassMoniker Name="/HumaneSocietyDataContext/USState" />
       <nestedChildShapes>
-        <elementListCompartment Id="7db1e8e4-a67d-4039-bae2-ce93dc50dadd" absoluteBounds="5.39, 8.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7db1e8e4-a67d-4039-bae2-ce93dc50dadd" absoluteBounds="3.0149999999999997, 8.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.375 : 8.13544840494792); (4.875 : 8.13544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4 : 8.25); (4 : 7.77089680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/HumaneSocietyDataContext/USState/USState_UserAddress" />
       <nodes>
         <classShapeMoniker Id="f58c6cac-3cc7-447d-a9a6-3d9b845c878c" />
