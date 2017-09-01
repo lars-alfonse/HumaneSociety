@@ -160,7 +160,55 @@ namespace HumaneSociety
         }
         public static void UpdateClientInfo(Client client)
         {
-            //add columns
+            List<string> options = new List<string>() { "What would you like to update? (Please enter number of option)", "1: Name", "2: Address", "3: Email", "4: Username", "5: Password", "6: Income", "7: Kids", "8: Home Size", "9. back" };
+            int input = default(int);
+            while (input != 9)
+            {
+                try
+                {
+                    UserInterface.DisplayUserOptions(options);
+                    input = int.Parse(UserInterface.GetUserInput());
+                    RunUpdateInput(input, client);
+                }
+                catch
+                {
+                    UserInterface.DisplayUserOptions("Input not recognized please enter an integer number of the option you would like to update");
+                }
+            }
+
+      }
+        private static void RunUpdateInput(int input, Client client)
+        {
+            switch (input)
+            {
+                case 1:
+                    UpdateName(client);
+                    break;
+                case 2:
+                    UpdateAddress(client);
+                    break;
+                //case 3:
+                //    UpdateEmail();
+                //    break;
+                //case 4:
+                //    UpdateUsername();
+                //    break;
+                //case 5:
+                //    UpdatePassword();
+                //    break;
+                //case 6:
+                //    UpdateIncome();
+                //    break;
+                //case 7:
+                //    UpdateKids()
+                //    break;
+                //case 8:
+                //    UpdateHomeSize();
+                //    break;
+                default:
+                    UserInterface.DisplayUserOptions("You have reached this message in error please contact support or administator and give them code 10928849");
+                    break;
+            }
 
         }
         public static int GetZipCode()
@@ -175,6 +223,54 @@ namespace HumaneSociety
             {
                 UserInterface.DisplayUserOptions("Invalid Zip code please enter a 5 digit zipcode");
                 return GetZipCode();
+            }
+        }
+        public static void DisplayCurrentAddress(Client client)
+        {
+            string address = client.UserAddress1.addessLine1;
+            string zipCode = client.UserAddress1.zipcode.ToString();
+            string state = client.UserAddress1.USState1.name;
+            UserInterface.DisplayUserOptions("Current address:");
+            UserInterface.DisplayUserOptions($"{address}, {zipCode}, {state}");
+        }
+        public static void UpdateAddress(Client client)
+        {
+            Console.Clear();
+            DisplayCurrentAddress(client);
+            client.UserAddress1.zipcode = GetZipCode();
+            client.UserAddress1.usState = GetState();
+            UserInterface.DisplayUserOptions("Please enter your street address");
+            client.UserAddress1.addessLine1 = UserInterface.GetUserInput();
+            Query.UpdateAddress(client);
+
+        }
+        public static void UpdateName(Client client)
+        {
+            Console.Clear();
+            List<string> options = new List<string>() { "Current Name:", client.firstName, client.lastName, "Would you like to update?", "1. First", "2. Last", "3. Both" };
+            UserInterface.DisplayUserOptions(options);
+            string input = UserInterface.GetUserInput().ToLower();
+            if (input == "first" || input == "1")
+            {
+                UserInterface.DisplayUserOptions("Please enter your new first name.");
+                client.firstName = UserInterface.GetUserInput();
+                Query.UpdateFirstName(client);
+
+            }
+            else if (input == "last" || input == "2")
+            {
+                UserInterface.DisplayUserOptions("Please enter your new last name.");
+                client.lastName = UserInterface.GetUserInput();
+                Query.UpdateLastName(client);
+            }
+            else
+            {
+                UserInterface.DisplayUserOptions("Please enter your new first name.");
+                client.firstName = UserInterface.GetUserInput();
+                Query.UpdateFirstName(client);
+                UserInterface.DisplayUserOptions("Please enter your new last name.");
+                client.lastName = UserInterface.GetUserInput();
+                Query.UpdateLastName(client);
             }
         }
     }

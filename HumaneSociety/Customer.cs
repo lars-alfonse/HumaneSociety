@@ -14,13 +14,14 @@ namespace HumaneSociety
             if (CheckIfNewUser())
             {
                 CustomerInterface.CreateClient();
+                LogInPreExistingUser();
             }
             else
             {
                 Console.Clear();
                 LogInPreExistingUser();
-                RunUserMenus();
             }
+            RunUserMenus();
         }
         protected override void LogInPreExistingUser()
         {
@@ -43,8 +44,27 @@ namespace HumaneSociety
         }
         protected override void RunUserMenus()
         {
-
+            Console.Clear();
+            CheckIfAccountComplete();
         }
 
+        private void CheckIfAccountComplete()
+        {
+            if(client.homeSize == null || client.kids == null || client.income == null)
+            {
+                UserInterface.DisplayUserOptions("Account not up to date would you like to update your account?");
+                string input = UserInterface.GetUserInput();
+                if (input == "yes" || input == "y")
+                {
+                    Console.Clear();
+                    CustomerInterface.UpdateClientInfo(client);
+                }
+                else
+                {
+                    Console.Clear();
+                    return;
+                }
+            }
+        }
     }
 }

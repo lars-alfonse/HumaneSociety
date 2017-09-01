@@ -54,7 +54,7 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             var client = (from user in context.Clients where user.userName == username && user.pass == password select user).ToList();
-            return client[0];
+            return (Client)client[0];
             
         }
         public static int GetClientAddressKey(string streetAddress, int zipCode, int stateNumber)
@@ -80,5 +80,34 @@ namespace HumaneSociety
             return addressNumber;
         }
 
+        public static void UpdateFirstName(Client client)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var clientData = from entry in context.Clients where entry.ID == client.ID select entry;
+            clientData.First().firstName = client.firstName;
+            context.SubmitChanges();
+        }
+        public static void UpdateLastName(Client client)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var clientData = from entry in context.Clients where entry.ID == client.ID select entry;
+            clientData.First().lastName = client.lastName;
+            context.SubmitChanges();
+        }
+        public static void UpdateAddress(Client client)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var clientData = from entry in context.Clients where entry.ID == client.ID select entry;
+            clientData.First().UserAddress1.zipcode= client.UserAddress1.zipcode;
+            clientData.First().UserAddress1.addessLine1 = client.UserAddress1.addessLine1;
+            clientData.First().UserAddress1.usState = client.UserAddress1.usState;
+            context.SubmitChanges();
+        }
+        //internal static object GetAddress(int userAddress)
+        //{
+        //    HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+        //    var address = from r in context.UserAddresses where r.ID == userAddress select r;
+        //    return address;
+        //}
     }
 }
