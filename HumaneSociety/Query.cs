@@ -103,6 +103,20 @@ namespace HumaneSociety
             clientData.First().UserAddress1.usState = client.UserAddress1.usState;
             context.SubmitChanges();
         }
+        public static void UpdateEmail(Client client)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var clientData = from entry in context.Clients where entry.ID == client.ID select entry;
+            clientData.First().email = client.email;
+            context.SubmitChanges();
+        }
+        public static void UpdateUsername(Client client)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var clientData = from entry in context.Clients where entry.ID == client.ID select entry;
+            clientData.First().userName = client.userName;
+            context.SubmitChanges();
+        }
         //internal static object GetAddress(int userAddress)
         //{
         //    HumaneSocietyDataContext context = new HumaneSocietyDataContext();

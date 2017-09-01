@@ -12,6 +12,15 @@ namespace HumaneSociety
         {
             UserInterface.DisplayUserOptions("Please enter a User name");
             string username = UserInterface.GetUserInput();
+            var clients = Query.RetrieveClients();
+            var clientUsernames = from client in clients select client.userName;
+            string email = GetEmail();
+            if (CheckForForValue(clientUsernames.ToList(), username))
+            {
+                Console.Clear();
+                UserInterface.DisplayUserOptions("Username already in use please try another username");
+                return GetUserName();
+            }
             return username;
         }
         public static bool CheckForForValue<T>(List<T> items, T value)
@@ -24,10 +33,18 @@ namespace HumaneSociety
         }
         public static string GetEmail()
         {
+            var clients = Query.RetrieveClients();
+            var clientEmails = from client in clients select client.email;
             UserInterface.DisplayUserOptions("Please enter your email");
             string email = UserInterface.GetUserInput();
             if(email.Contains("@") && email.Contains("."))
             {
+                    if (CheckForForValue(clientEmails.ToList(), email))
+                {
+                    Console.Clear();
+                    UserInterface.DisplayUserOptions("Email already in use please try another email or contact support for forgotten account info");
+                    return GetEmail();
+                }
                 return email;
             }
             else
@@ -73,39 +90,22 @@ namespace HumaneSociety
             {
                 var clients = Query.RetrieveClients();
                 var clientUsernames = from client in clients select client.userName;
-                var clientEmails = from client in clients select client.email;
                 string username = GetUserName();
                 string email = GetEmail();
-                if (CheckForForValue(clientUsernames.ToList(), username))
-                {
-                    Console.Clear();
-                    UserInterface.DisplayUserOptions("Username already in use please try another username");
-                    return CreateClient(clients);
-                }
-                else if(CheckForForValue(clientEmails.ToList(), email))
-                {
-                    Console.Clear();
-                    UserInterface.DisplayUserOptions("Email already in use please try another email or contact support for forgotten account info");
-                    return CreateClient(clients);
-                }
-                else
-                {
-                    Console.Clear();
-                    UserInterface.DisplayUserOptions("Please enter password (Warning password is CaSe SeNsItIvE)");
-                    string password = UserInterface.GetUserInput();
-                    UserInterface.DisplayUserOptions("Enter your first name.");
-                    string firstName = UserInterface.GetUserInput();
-                    UserInterface.DisplayUserOptions("Enter your last name.");
-                    string lastName = UserInterface.GetUserInput();
-                    int zipCode = GetZipCode();
-                    int state = GetState();
-                    UserInterface.DisplayUserOptions("Please enter your street address");
-                    string streetAddress = UserInterface.GetUserInput();
-                    Query.AddNewClient(firstName, lastName, username, password, email, streetAddress, zipCode, state);
-                    Console.Clear();
-                    UserInterface.DisplayUserOptions("Profile successfully added");
-
-                }
+                Console.Clear();
+                UserInterface.DisplayUserOptions("Please enter password (Warning password is CaSe SeNsItIvE)");
+                string password = UserInterface.GetUserInput();
+                UserInterface.DisplayUserOptions("Enter your first name.");
+                string firstName = UserInterface.GetUserInput();
+                UserInterface.DisplayUserOptions("Enter your last name.");
+                string lastName = UserInterface.GetUserInput();
+                int zipCode = GetZipCode();
+                int state = GetState();
+                UserInterface.DisplayUserOptions("Please enter your street address");
+                string streetAddress = UserInterface.GetUserInput();
+                Query.AddNewClient(firstName, lastName, username, password, email, streetAddress, zipCode, state);
+                Console.Clear();
+                UserInterface.DisplayUserOptions("Profile successfully added");
                 return true;
             }
             catch
@@ -187,12 +187,12 @@ namespace HumaneSociety
                 case 2:
                     UpdateAddress(client);
                     break;
-                //case 3:
-                //    UpdateEmail();
-                //    break;
-                //case 4:
-                //    UpdateUsername();
-                //    break;
+                case 3:
+                    UpdateEmail(client);
+                    break;
+                case 4:
+                    UpdateUsername(client);
+                    break;
                 //case 5:
                 //    UpdatePassword();
                 //    break;
@@ -211,6 +211,23 @@ namespace HumaneSociety
             }
 
         }
+
+        private static void UpdateUsername(Client client)
+        {
+            Console.Clear();
+            UserInterface.DisplayUserOptions("Current Username: " + client.userName);
+            client.userName = GetUserName();
+            Query.UpdateUsername(client);
+        }
+
+        private static void UpdateEmail(Client client)
+        {
+            Console.Clear();
+            UserInterface.DisplayUserOptions("Current email: " + client.email);
+            client.email = GetEmail();
+            Query.UpdateEmail(client);
+        }
+
         public static int GetZipCode()
         {
             UserInterface.DisplayUserOptions("Please enter 5 digit zip");
