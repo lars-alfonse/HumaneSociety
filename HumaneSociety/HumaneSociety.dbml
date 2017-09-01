@@ -16,28 +16,15 @@
       <Column Name="species" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="pattern" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="Breed_Animal" Member="Animals" ThisKey="ID" OtherKey="breed" Type="Animal" />
-      <Association Name="Specy_Breed" Member="Species1" ThisKey="species" OtherKey="ID" Type="Species" IsForeignKey="true" />
+      <Association Name="Species_Breed" Member="Species1" ThisKey="species" OtherKey="ID" Type="Species" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ClientAnimalJunction" Member="ClientAnimalJunctions">
     <Type Name="ClientAnimalJunction">
       <Column Name="client" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="animal" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Client_ClientAnimalJunction" Member="Client1" ThisKey="client" OtherKey="ID" Type="Client" IsForeignKey="true" />
       <Association Name="Animal_ClientAnimalJunction" Member="Animal1" ThisKey="animal" OtherKey="ID" Type="Animal" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Clients" Member="Clients">
-    <Type Name="Client">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="firstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="lastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="userName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="pass" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="userAddress" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Client_ClientAnimalJunction" Member="ClientAnimalJunctions" ThisKey="ID" OtherKey="client" Type="ClientAnimalJunction" />
-      <Association Name="UserAddress_Client" Member="UserAddress1" ThisKey="userAddress" OtherKey="ID" Type="UserAddress" IsForeignKey="true" />
+      <Association Name="Client_ClientAnimalJunction" Member="Client1" ThisKey="client" OtherKey="ID" Type="Client" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DietPlan" Member="DietPlans">
@@ -78,7 +65,7 @@
     <Type Name="Species">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="species" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Specy_Breed" Member="Breeds" ThisKey="ID" OtherKey="species" Type="Breed" />
+      <Association Name="Species_Breed" Member="Breeds" ThisKey="ID" OtherKey="species" Type="Breed" />
     </Type>
   </Table>
   <Table Name="dbo.UserAddress" Member="UserAddresses">
@@ -117,6 +104,22 @@
       <Association Name="Breed_Animal" Member="Breed1" ThisKey="breed" OtherKey="ID" Type="Breed" IsForeignKey="true" />
       <Association Name="DietPlan_Animal" Member="DietPlan" ThisKey="diet" OtherKey="ID" Type="DietPlan" IsForeignKey="true" />
       <Association Name="Room_Animal" Member="Room" ThisKey="location" OtherKey="ID" Type="Room" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Clients" Member="Clients">
+    <Type Name="Client">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="firstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pass" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="userAddress" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="income" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="kids" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="homeSize" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Client_ClientAnimalJunction" Member="ClientAnimalJunctions" ThisKey="ID" OtherKey="client" Type="ClientAnimalJunction" />
+      <Association Name="UserAddress_Client" Member="UserAddress1" ThisKey="userAddress" OtherKey="ID" Type="UserAddress" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

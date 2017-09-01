@@ -158,6 +158,11 @@ namespace HumaneSociety
                 return false;
             }
         }
+        public static void  UpdateClientInfo(Client client)
+        {
+            //add columns
+
+        }
         public static int GetZipCode()
         {
             UserInterface.DisplayUserOptions("Please enter 5 digit zip");
