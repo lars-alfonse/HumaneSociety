@@ -22,10 +22,19 @@ namespace HumaneSociety
         public static string GetUserInput()
         {
             string input = Console.ReadLine();
-            if(input.ToLower() == "exit")
+            switch (input.ToLower())
             {
-                //Environment.Exit();
+                case "reset":
+                    PointOfEntry.Run();
+                    Environment.Exit(1);
+                    break;
+                case "exit":
+                    Environment.Exit(1);
+                    break;
+                default:
+                    break;
             }
+
             return input;
         }
     }

@@ -158,7 +158,7 @@ namespace HumaneSociety
                 return false;
             }
         }
-        public static void  UpdateClientInfo(Client client)
+        public static void UpdateClientInfo(Client client)
         {
             //add columns
 

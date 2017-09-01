@@ -50,6 +50,13 @@ namespace HumaneSociety
             context.Clients.InsertOnSubmit(client);
             context.SubmitChanges();
         }
+        public static Client GetClient(string username, string password)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var client = (from user in context.Clients where user.userName == username && user.pass == password select user).ToList();
+            return client[0];
+            
+        }
         public static int GetClientAddressKey(string streetAddress, int zipCode, int stateNumber)
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
