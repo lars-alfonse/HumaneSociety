@@ -54,8 +54,8 @@ namespace HumaneSociety
 
         private void RemoveEmployee()
         {
-            string lastName = GetEmployeeData("last name");
-            string employeeNumber = GetEmployeeData("number");
+            string lastName = UserInterface.GetStringData("last name", "the employee's"); ;
+            string employeeNumber = UserInterface.GetStringData("employee number", "the employee's");
             try
             {
                 Console.Clear();
@@ -72,10 +72,10 @@ namespace HumaneSociety
 
         private void AddEmployee()
         {
-            string firstName = GetEmployeeData("first name");
-            string lastName = GetEmployeeData("last name");
-            string employeeNumber = GetEmployeeData("number");
-            string email = GetEmployeeData("email");
+            string firstName = UserInterface.GetStringData("first name", "the employee's");
+            string lastName = UserInterface.GetStringData("last name", "the employee's");
+            string employeeNumber = UserInterface.GetStringData("employee number", "the employee's");
+            string email = UserInterface.GetStringData("email", "the employee's"); ;
             try
             {
                 Query.AddNewEmployee(firstName, lastName, employeeNumber, email);
@@ -90,12 +90,5 @@ namespace HumaneSociety
             }
         }
 
-        private string GetEmployeeData(string parameter)
-        {
-            string data;
-            UserInterface.DisplayUserOptions($"What is the employee's {parameter}?");
-            data = UserInterface.GetUserInput();
-            return data;
-        }
     }
 }

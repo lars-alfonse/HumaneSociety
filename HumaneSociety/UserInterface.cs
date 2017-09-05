@@ -37,5 +37,12 @@ namespace HumaneSociety
 
             return input;
         }
+        public static string GetStringData(string parameter, string target)
+        {
+            string data;
+            UserInterface.DisplayUserOptions($"What is {target} {parameter}?");
+            data = UserInterface.GetUserInput();
+            return data;
+        }
     }
 }
