@@ -56,7 +56,14 @@ namespace HumaneSociety
 
         internal static int? GetBreed()
         {
-            throw new NotImplementedException();
+            Breed breed = new Breed();
+            breed.Species1.species = UserInterface.GetStringData("species","the animal's");
+            breed.breed1 = UserInterface.GetStringData("breed", "the animal's");
+            breed.pattern = UserInterface.GetStringData("pattern", "the animial's");
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            context.Breeds.InsertOnSubmit(breed);
+            var currentBreed = (from data in context.Breeds where data.breed1 == breed.breed1 && data.Species1.species == breed.Species1.species && data.pattern == breed.pattern select data).First();
+            return currentBreed.ID;
         }
 
         public static IQueryable<Client> RetrieveClients()

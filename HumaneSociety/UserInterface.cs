@@ -44,5 +44,19 @@ namespace HumaneSociety
             data = UserInterface.GetUserInput();
             return data;
         }
+
+        internal static bool? GetBitData(string target, string parameter)
+        {
+            DisplayUserOptions($"Is {target} {parameter}?");
+            string input = GetUserInput();
+            if (input.ToLower() == "yes" || input.ToLower() == "y")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

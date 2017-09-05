@@ -39,18 +39,18 @@ namespace HumaneSociety
                     AddAnimal();
                     RunUserMenus();
                     return;
-                case "2":
-                    RemoveAnimal();
-                    RunUserMenus();
-                    return;
-                case "3":
-                    CheckAnimalStatus();
-                    RunUserMenus();
-                    return;
-                case "4":
-                    CheckAdoptions();
-                    RunUserMenus();
-                    return;
+                //case "2":
+                //    RemoveAnimal();
+                //    RunUserMenus();
+                //    return;
+                //case "3":
+                //    CheckAnimalStatus();
+                //    RunUserMenus();
+                //    return;
+                //case "4":
+                //    CheckAdoptions();
+                //    RunUserMenus();
+                //    return;
                 default:
                     UserInterface.DisplayUserOptions("Input not accepted please try again");
                     RunUserMenus();
@@ -63,9 +63,25 @@ namespace HumaneSociety
             Console.Clear();
             Animal animal = new Animal();
             animal.breed = Query.GetBreed();
-            animal.name = UserInterface.GetStringData("name", "the animals");
+            animal.name = UserInterface.GetStringData("name", "the animal's");
+            animal.age = GetAnimalAge();
+            animal.demeanor = UserInterface.GetStringData("demeanor", "the animal's");
+            animal.kidFriendly = UserInterface.GetBitData("the animal", "child friendly");   
         }
-
+        private int GetAnimalAge()
+        {
+             try
+            {
+                int age = int.Parse(UserInterface.GetStringData("age", "the animal's"));
+                return age;
+            }
+            catch
+            {
+                Console.Clear();
+                UserInterface.DisplayUserOptions("Incorrect input please enter an integer number.");
+                return GetAnimalAge();
+            }
+        }
         protected override void LogInPreExistingUser()
         {
             List<string> options = new List<string>() { "Please log in", "Enter your username (CaSe SeNsItIvE)" };
