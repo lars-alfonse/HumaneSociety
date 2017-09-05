@@ -71,6 +71,12 @@ namespace HumaneSociety
                 return false;
             }
         }
+
+        internal static void DisplayAnimals(List<Animal> animals)
+        {
+            throw new NotImplementedException();
+        }
+
         public static int GetIntegerData(string parameter, string target)
         {
             try

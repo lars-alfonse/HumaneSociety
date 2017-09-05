@@ -60,7 +60,12 @@ namespace HumaneSociety
 
         private void RemoveAnimal()
         {
-            var animal = SearchForAnimal().ToList()[0];
+
+            var animals = SearchForAnimal().ToList();
+            if (animals.Count > 1)
+            {
+                UserInterface.DisplayAnimals(animals);
+            }
             List<string> options = new List<string>() { "Animal found:", animal.name, animal.Breed1.breed1, "would you like to delete?" };
             if ((bool)UserInterface.GetBitData(options))
             {
@@ -71,42 +76,56 @@ namespace HumaneSociety
         private IQueryable<Animal> SearchForAnimal()
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
-            var animals = context.Animals;
+            var animals = from data in context.Animals select data;
 
             var searchParameters = GetAnimalCriteria();
             if (searchParameters.ContainsKey(1))
             {
-                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.Breed1.Species1.species == searchParameters[1] select data);
+                animals = (from data in animals where data.Breed1.Species1.species == searchParameters[1] select data);
             }
             if (searchParameters.ContainsKey(2))
             {
-                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.Breed1.breed1 == searchParameters[2] select data);
+                animals = (from data in animals where data.Breed1.breed1 == searchParameters[2] select data);
             }
             if (searchParameters.ContainsKey(3))
             {
-                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.name == searchParameters[3] select data);
+                animals = (from data in animals where data.name == searchParameters[3] select data);
             }
             if (searchParameters.ContainsKey(4))
             {
-                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.age == int.Parse(searchParameters[4]) select data);
+                animals = (from data in animals where data.age == int.Parse(searchParameters[4]) select data);
             }
             if (searchParameters.ContainsKey(5))
             {
-                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.demeanor == searchParameters[5] select data);
+                animals = (from data in animals where data.demeanor == searchParameters[5] select data);
             }
             if (searchParameters.ContainsKey(6))
             {
-                //animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.kidFriendly == (bool)searchParameters[3] select data);
+                bool parameter = GetBoolParamater(searchParameters[6]);
+                animals = (from data in animals where data.kidFriendly == parameter select data);
             }
             if (searchParameters.ContainsKey(7))
             {
-
+                bool parameter = GetBoolParamater(searchParameters[7]);
+                animals = (from data in animals where data.petFriendly == parameter select data);
             }
             if (searchParameters.ContainsKey(8))
             {
-
+                animals = (from data in animals where data.weight == int.Parse(searchParameters[8]) select data);
             }
             return animals;
+        }
+
+        private bool GetBoolParamater(string input)
+        {
+            if (input.ToLower() == "true")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void AddAnimal()
