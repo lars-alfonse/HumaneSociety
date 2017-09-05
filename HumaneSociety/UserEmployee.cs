@@ -64,8 +64,18 @@ namespace HumaneSociety
             var animals = SearchForAnimal().ToList();
             if (animals.Count > 1)
             {
+                UserInterface.DisplayUserOptions("Several animals found please refine your search.");
                 UserInterface.DisplayAnimals(animals);
+                UserInterface.DisplayUserOptions("Press enter to continue");
+                Console.ReadLine();
+                return;
             }
+            else if (animals.Count < 1)
+            {
+                UserInterface.DisplayUserOptions("Animal not found please use different search criteria");
+                return;
+            }
+            var animal = animals[0];
             List<string> options = new List<string>() { "Animal found:", animal.name, animal.Breed1.breed1, "would you like to delete?" };
             if ((bool)UserInterface.GetBitData(options))
             {

@@ -72,6 +72,9 @@ namespace HumaneSociety
         public static void RemoveAnimal(Animal animal)
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var removedAnimal = (from data in context.Animals where data.ID == animal.ID select data).First();
+            context.Animals.DeleteOnSubmit(removedAnimal);
+            context.SubmitChanges();
             
         }
 

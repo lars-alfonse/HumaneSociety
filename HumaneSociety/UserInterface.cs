@@ -74,7 +74,10 @@ namespace HumaneSociety
 
         internal static void DisplayAnimals(List<Animal> animals)
         {
-            throw new NotImplementedException();
+            foreach(Animal animal in animals)
+            {
+                Console.WriteLine(animal.ID + " " + animal.name + " " + animal.Breed1.breed1);
+            }
         }
 
         public static int GetIntegerData(string parameter, string target)
