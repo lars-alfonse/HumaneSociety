@@ -44,5 +44,27 @@ namespace HumaneSociety
         {
 
         }
+        protected Dictionary<int, string> GetAnimalCriteria()
+        {
+            Dictionary<int, string> searchParameters = new Dictionary<int, string>();
+            bool isSearching = true;
+            while (isSearching)
+            {
+                Console.Clear();
+                List<string> options = new List<string>() { "Select Search Criteia: (Enter number and choose finished when finished)", "1. Species", "2. Breed", "3. Name", "4. Age", "5. Demeanor", "6. Kid friendly", "7. Pet friendly", "8. Weight", "9. Finished" };
+                UserInterface.DisplayUserOptions(options);
+                string input = UserInterface.GetUserInput();
+                if (input.ToLower() == "9" || input.ToLower() == "finished")
+                {
+                    isSearching = false;
+                    continue;
+                }
+                else
+                {
+                    searchParameters = CustomerInterface.EnterSearchCriteria(searchParameters, input);
+                }
+            }
+            return searchParameters;
+        }
     }
 }

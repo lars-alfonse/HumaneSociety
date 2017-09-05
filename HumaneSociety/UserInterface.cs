@@ -45,6 +45,19 @@ namespace HumaneSociety
             return data;
         }
 
+        internal static bool? GetBitData(List<string> options)
+        {
+            DisplayUserOptions(options);
+            string input = GetUserInput();
+            if (input.ToLower() == "yes" || input.ToLower() == "y")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         internal static bool? GetBitData(string target, string parameter)
         {
             DisplayUserOptions($"Is {target} {parameter}?");
@@ -62,7 +75,7 @@ namespace HumaneSociety
         {
             try
             {
-                int data = int.Parse(GetStringData(parameter, target);
+                int data = int.Parse(GetStringData(parameter, target));
                 return data;
             }
             catch

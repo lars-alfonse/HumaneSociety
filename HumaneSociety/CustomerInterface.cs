@@ -83,6 +83,42 @@ namespace HumaneSociety
                 return GetState();
             }
         }
+
+        internal static Dictionary<int, string> EnterSearchCriteria(Dictionary<int, string> searchParameters, string input)
+        {
+            Console.Clear();
+            switch (input)
+            {
+                case "1":
+                    searchParameters.Add(1 , UserInterface.GetStringData("species", "the animal's"));
+                    return searchParameters;
+                case "2":
+                    searchParameters.Add(2, UserInterface.GetStringData("breed", "the animal's"));
+                    return searchParameters;
+                case "3":
+                    searchParameters.Add(3, UserInterface.GetStringData("name", "the animal's"));
+                    return searchParameters;
+                case "4":
+                    searchParameters.Add(4, UserInterface.GetIntegerData("age", "the animal's").ToString());
+                    return searchParameters;
+                case "5":
+                    searchParameters.Add(5, UserInterface.GetStringData("demeanor", "the animal's"));
+                    return searchParameters;
+                case "6":
+                    searchParameters.Add(6, UserInterface.GetBitData("the animal", "kid friendly").ToString());
+                    return searchParameters;
+                case "7":
+                    searchParameters.Add(7, UserInterface.GetBitData("the animal", "pet friendly").ToString());
+                    return searchParameters;
+                case "8":
+                    searchParameters.Add(8, UserInterface.GetIntegerData("weight", "the animal's").ToString());
+                    return searchParameters;
+                default:
+                    UserInterface.DisplayUserOptions("Input not recognized please try agian");
+                    return searchParameters;
+            }
+        }
+
         public static bool CreateClient()
         {
             try

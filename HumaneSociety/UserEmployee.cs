@@ -39,10 +39,10 @@ namespace HumaneSociety
                     AddAnimal();
                     RunUserMenus();
                     return;
-                //case "2":
-                //    RemoveAnimal();
-                //    RunUserMenus();
-                //    return;
+                case "2":
+                    RemoveAnimal();
+                    RunUserMenus();
+                    return;
                 //case "3":
                 //    CheckAnimalStatus();
                 //    RunUserMenus();
@@ -56,6 +56,57 @@ namespace HumaneSociety
                     RunUserMenus();
                     return;
             }
+        }
+
+        private void RemoveAnimal()
+        {
+            var animal = SearchForAnimal().ToList()[0];
+            List<string> options = new List<string>() { "Animal found:", animal.name, animal.Breed1.breed1, "would you like to delete?" };
+            if ((bool)UserInterface.GetBitData(options))
+            {
+                Query.RemoveAnimal(animal);
+            }
+        }
+
+        private IQueryable<Animal> SearchForAnimal()
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var animals = context.Animals;
+
+            var searchParameters = GetAnimalCriteria();
+            if (searchParameters.ContainsKey(1))
+            {
+                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.Breed1.Species1.species == searchParameters[1] select data);
+            }
+            if (searchParameters.ContainsKey(2))
+            {
+                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.Breed1.breed1 == searchParameters[2] select data);
+            }
+            if (searchParameters.ContainsKey(3))
+            {
+                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.name == searchParameters[3] select data);
+            }
+            if (searchParameters.ContainsKey(4))
+            {
+                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.age == int.Parse(searchParameters[4]) select data);
+            }
+            if (searchParameters.ContainsKey(5))
+            {
+                animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.demeanor == searchParameters[5] select data);
+            }
+            if (searchParameters.ContainsKey(6))
+            {
+                //animals = (System.Data.Linq.Table<Animal>)(from data in animals where data.kidFriendly == (bool)searchParameters[3] select data);
+            }
+            if (searchParameters.ContainsKey(7))
+            {
+
+            }
+            if (searchParameters.ContainsKey(8))
+            {
+
+            }
+            return animals;
         }
 
         private void AddAnimal()
@@ -99,8 +150,16 @@ namespace HumaneSociety
             Console.Clear();
             string email = UserInterface.GetStringData("email", "your");
             int employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "your"));
-            employee = Query.RetrieveEmployeeUser(email, employeeNumber);
-            if (employee.pass == null)
+            try
+            {
+                employee = Query.RetrieveEmployeeUser(email, employeeNumber);
+            }
+            catch
+            {
+                UserInterface.DisplayUserOptions("Employee not found please contact your administrator");
+                PointOfEntry.Run();
+            }
+            if (employee.pass != null)
             {
                 UserInterface.DisplayUserOptions("User already in use please log in or contact your administrator");
                 LogIn();
@@ -129,14 +188,14 @@ namespace HumaneSociety
         {
             Console.Clear();
             string username = UserInterface.GetStringData("username", "your");
-            if (Query.CheckEmployeeUserNameExist(userName))
+            if (Query.CheckEmployeeUserNameExist(username))
             {
                 UserInterface.DisplayUserOptions("Username already in use please try another username.");
                 GetUserName();
             }
             else
             {
-                employee.userName = userName;
+                employee.userName = username;
                 UserInterface.DisplayUserOptions("Username successful");
             }
         }

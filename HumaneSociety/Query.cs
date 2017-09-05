@@ -46,21 +46,35 @@ namespace HumaneSociety
         internal static void AddUsernameAndPassword(Employee employee)
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
-            context.Employees.InsertOnSubmit(employee);
+            var updateEmployee = (from data in context.Employees where data.email == employee.email select data).First();
+            updateEmployee.pass = employee.pass;
+            updateEmployee.userName = employee.userName;
             context.SubmitChanges();
         }
-
         internal static int? GetBreed()
         {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             Breed breed = new Breed();
-            breed.Species1.species = UserInterface.GetStringData("species","the animal's");
+            Species species = new Species();
+            species.species = UserInterface.GetStringData("species", "the animal's");
+            context.Species.InsertOnSubmit(species);
+            context.SubmitChanges();
+            var currentSpecies = (from data in context.Species where data.species == species.species select species).First();
+            breed.Species1 = currentSpecies;
             breed.breed1 = UserInterface.GetStringData("breed", "the animal's");
             breed.pattern = UserInterface.GetStringData("pattern", "the animial's");
-            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             context.Breeds.InsertOnSubmit(breed);
+            context.SubmitChanges();
             var currentBreed = (from data in context.Breeds where data.breed1 == breed.breed1 && data.Species1.species == breed.Species1.species && data.pattern == breed.pattern select data).First();
             return currentBreed.ID;
         }
+
+        public static void RemoveAnimal(Animal animal)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            
+        }
+
         public static int GetDiet()
         {
             DietPlan plan = new DietPlan();
@@ -68,6 +82,7 @@ namespace HumaneSociety
             plan.food = UserInterface.GetStringData("the type of", "food");
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             context.DietPlans.InsertOnSubmit(plan);
+            context.SubmitChanges();
             var currentPlan = (from data in context.DietPlans where data.amount == plan.amount && data.food == plan.food select data.ID).First();
             return currentPlan;
         }
@@ -78,6 +93,7 @@ namespace HumaneSociety
             room.building = UserInterface.GetStringData("name", "the building");
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             context.Rooms.InsertOnSubmit(room);
+            context.SubmitChanges();
             var currentRoom = (from data in context.Rooms where data.name == room.name && data.building == room.building select data.ID).First();
             return currentRoom;
 
@@ -92,7 +108,7 @@ namespace HumaneSociety
         internal static bool CheckEmployeeUserNameExist(string userName)
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
-            var employee = (from data in context.Employees where data.userName == userName select data).First();
+            var employee = (from data in context.Employees where data.userName == userName select data).SingleOrDefault();
             if (employee == null)
             {
                 return false;
