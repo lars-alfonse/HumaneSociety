@@ -50,6 +50,30 @@ namespace HumaneSociety
             context.Clients.InsertOnSubmit(client);
             context.SubmitChanges();
         }
+
+        internal static void RemoveEmployee(string lastName, string employeeNumber)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            Employee employee = (from data in context.Employees where data.lastName == lastName && data.employeeNumber == int.Parse(employeeNumber) select data).First();
+            if (employee != null)
+            {
+                context.Employees.DeleteOnSubmit(employee);
+                context.SubmitChanges();
+            }
+        }
+
+        internal static void AddNewEmployee(string firstName, string lastName, string employeeNumber, string email)
+        {
+            Employee employee = new Employee();
+            employee.employeeNumber = int.Parse(employeeNumber);
+            employee.firsttName = firstName;
+            employee.lastName = lastName;
+            employee.email = email;
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            context.Employees.InsertOnSubmit(employee);
+            context.SubmitChanges();
+        }
+
         public static Client GetClient(string username, string password)
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();

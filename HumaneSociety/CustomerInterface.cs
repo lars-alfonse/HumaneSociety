@@ -14,7 +14,6 @@ namespace HumaneSociety
             string username = UserInterface.GetUserInput();
             var clients = Query.RetrieveClients();
             var clientUsernames = from client in clients select client.userName;
-            string email = GetEmail();
             if (CheckForForValue(clientUsernames.ToList(), username))
             {
                 Console.Clear();
@@ -193,23 +192,44 @@ namespace HumaneSociety
                 case 4:
                     UpdateUsername(client);
                     break;
-                //case 5:
-                //    UpdatePassword();
-                //    break;
-                //case 6:
-                //    UpdateIncome();
-                //    break;
-                //case 7:
-                //    UpdateKids()
-                //    break;
-                //case 8:
-                //    UpdateHomeSize();
-                //    break;
+                case 5:
+                    UpdatePassword(client);
+                    break;
+                case 6:
+                    UpdateIncome(client);
+                    break;
+                case 7:
+                    UpdateKids(client);
+                    break;
+                case 8:
+                    UpdateHomeSize(client);
+                    break;
                 default:
                     UserInterface.DisplayUserOptions("You have reached this message in error please contact support or administator and give them code 10928849");
                     break;
             }
 
+        }
+
+        private static void UpdateHomeSize(Client client)
+        {
+            Console.Clear();
+            UserInterface.DisplayUserOptions("What is your home size? (small, medium, large)");
+        }
+
+        private static void UpdateKids(Client client)
+        {
+            Console.Clear();
+        }
+
+        private static void UpdateIncome(Client client)
+        {
+            Console.Clear();
+        }
+
+        private static void UpdatePassword(Client client)
+        {
+            Console.Clear();
         }
 
         private static void UpdateUsername(Client client)
