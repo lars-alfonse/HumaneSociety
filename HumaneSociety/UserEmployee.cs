@@ -64,23 +64,14 @@ namespace HumaneSociety
             Animal animal = new Animal();
             animal.breed = Query.GetBreed();
             animal.name = UserInterface.GetStringData("name", "the animal's");
-            animal.age = GetAnimalAge();
+            animal.age = UserInterface.GetIntegerData("age", "the animal's");
             animal.demeanor = UserInterface.GetStringData("demeanor", "the animal's");
-            animal.kidFriendly = UserInterface.GetBitData("the animal", "child friendly");   
-        }
-        private int GetAnimalAge()
-        {
-             try
-            {
-                int age = int.Parse(UserInterface.GetStringData("age", "the animal's"));
-                return age;
-            }
-            catch
-            {
-                Console.Clear();
-                UserInterface.DisplayUserOptions("Incorrect input please enter an integer number.");
-                return GetAnimalAge();
-            }
+            animal.kidFriendly = UserInterface.GetBitData("the animal", "child friendly");
+            animal.petFriendly = UserInterface.GetBitData("the animal", "pet friendly");
+            animal.weight = UserInterface.GetIntegerData("the animal's", "weight");
+            animal.diet = Query.GetDiet();
+            animal.location = Query.GetLocation();
+            Query.AddAnimal(animal);
         }
         protected override void LogInPreExistingUser()
         {

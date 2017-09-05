@@ -40,8 +40,8 @@ namespace HumaneSociety
         public static string GetStringData(string parameter, string target)
         {
             string data;
-            UserInterface.DisplayUserOptions($"What is {target} {parameter}?");
-            data = UserInterface.GetUserInput();
+            DisplayUserOptions($"What is {target} {parameter}?");
+            data = GetUserInput();
             return data;
         }
 
@@ -56,6 +56,20 @@ namespace HumaneSociety
             else
             {
                 return false;
+            }
+        }
+        public static int GetIntegerData(string parameter, string target)
+        {
+            try
+            {
+                int data = int.Parse(GetStringData(parameter, target);
+                return data;
+            }
+            catch
+            {
+                Console.Clear();
+                DisplayUserOptions("Incorrect input please enter an integer number.");
+                return GetIntegerData(parameter, target);
             }
         }
     }

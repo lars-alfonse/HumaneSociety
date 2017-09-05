@@ -14,12 +14,8 @@ namespace HumaneSociety
             var result = from r in context.Animals select r;
             return result.ToList();
         }
-        public static void AddAnimal()
+        public static void AddAnimal(Animal animal)
         {
-            Console.WriteLine("What is the animals name");
-            string name = Console.ReadLine();
-            Animal animal = new Animal();
-            animal.name = name;
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             context.Animals.InsertOnSubmit(animal);
             context.SubmitChanges();
@@ -65,7 +61,27 @@ namespace HumaneSociety
             var currentBreed = (from data in context.Breeds where data.breed1 == breed.breed1 && data.Species1.species == breed.Species1.species && data.pattern == breed.pattern select data).First();
             return currentBreed.ID;
         }
+        public static int GetDiet()
+        {
+            DietPlan plan = new DietPlan();
+            plan.amount = UserInterface.GetIntegerData("amount", "the daily food");
+            plan.food = UserInterface.GetStringData("the type of", "food");
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            context.DietPlans.InsertOnSubmit(plan);
+            var currentPlan = (from data in context.DietPlans where data.amount == plan.amount && data.food == plan.food select data.ID).First();
+            return currentPlan;
+        }
+        public static int GetLocation()
+        {
+            Room room = new Room();
+            room.name = UserInterface.GetStringData("name", "the room");
+            room.building = UserInterface.GetStringData("name", "the building");
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            context.Rooms.InsertOnSubmit(room);
+            var currentRoom = (from data in context.Rooms where data.name == room.name && data.building == room.building select data.ID).First();
+            return currentRoom;
 
+        }
         public static IQueryable<Client> RetrieveClients()
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
