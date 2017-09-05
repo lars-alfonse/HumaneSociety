@@ -24,18 +24,62 @@ namespace HumaneSociety
             context.Animals.InsertOnSubmit(animal);
             context.SubmitChanges();
         }
+
+        internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
+        {
+
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            Employee employee = (from data in context.Employees where data.email == email && data.employeeNumber == employeeNumber select data).First();
+            return employee;
+        }
+
+        internal static Employee EmployeeLogin(string userName, string password)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var employee = (from data in context.Employees where data.userName == userName && data.pass == password select data).First();
+            return employee;
+        }
+
         public static IQueryable<USState> GetStates()
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             var states = from r in context.USStates select r;
             return states;
         }
+
+        internal static void AddUsernameAndPassword(Employee employee)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            context.Employees.InsertOnSubmit(employee);
+            context.SubmitChanges();
+        }
+
+        internal static int? GetBreed()
+        {
+            throw new NotImplementedException();
+        }
+
         public static IQueryable<Client> RetrieveClients()
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             var clients = from r in context.Clients select r;
             return clients;
         }
+
+        internal static bool CheckEmployeeUserNameExist(string userName)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var employee = (from data in context.Employees where data.userName == userName select data).First();
+            if (employee == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public static void AddNewClient(string firstName, string lastName, string userName, string password, string email, string streetAddress, int zipCode, int stateNumber)
         {
             Client client = new Client();
@@ -141,11 +185,5 @@ namespace HumaneSociety
             clientData.First().userName = client.userName;
             context.SubmitChanges();
         }
-        //internal static object GetAddress(int userAddress)
-        //{
-        //    HumaneSocietyDataContext context = new HumaneSocietyDataContext();
-        //    var address = from r in context.UserAddresses where r.ID == userAddress select r;
-        //    return address;
-        //}
     }
 }
