@@ -96,7 +96,7 @@ namespace HumaneSociety
         {
             try
             {
-                int data = int.Parse(Console.ReadLine());
+                int data = int.Parse(GetUserInput());
                 return data;
             }
             catch

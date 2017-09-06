@@ -77,6 +77,24 @@ namespace HumaneSociety
             return currentBreed.ID;
         }
 
+        public static void Adopt(Animal animal, Client client)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            ClientAnimalJunction junction = new ClientAnimalJunction();
+            junction.animal = animal.ID;
+            junction.client = animal.ID;
+            junction.approvalStatus = "pending";
+            context.ClientAnimalJunctions.InsertOnSubmit(junction);
+            context.SubmitChanges();
+        }
+
+        public static Animal GetAnimalByID(int iD)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var animal = (from data in context.Animals where data.ID == iD select data).First();
+            return animal;
+        }
+
         internal static void UpdateAdoption(bool isApproved, ClientAnimalJunction junction)
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
