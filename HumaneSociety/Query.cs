@@ -89,7 +89,7 @@ namespace HumaneSociety
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
             ClientAnimalJunction junction = new ClientAnimalJunction();
             junction.animal = animal.ID;
-            junction.client = animal.ID;
+            junction.client = client.ID;
             junction.approvalStatus = "pending";
             context.ClientAnimalJunctions.InsertOnSubmit(junction);
             context.SubmitChanges();
