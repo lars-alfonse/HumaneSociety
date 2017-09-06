@@ -44,8 +44,58 @@ namespace HumaneSociety
         }
         protected override void RunUserMenus()
         {
+            List<string> options = new List<string>() { "1. Search for animals", "2. Update info", "3. Apply for Adoption", "4. Check Adoption Status" };
             Console.Clear();
             CheckIfAccountComplete();
+            UserInterface.DisplayUserOptions(options);
+            int input = UserInterface.GetIntegerData();
+            RunUserInput(input);
+            
+        }
+
+        private void RunUserInput(int input)
+        {
+            switch (input)
+            {
+                case 1:
+                    RunSearch();
+                    RunUserMenus();
+                    return;
+                case 2:
+                    CustomerInterface.UpdateClientInfo(client);
+                    RunUserMenus();
+                    return;
+                case 3:
+                    RunUserMenus();
+                    return;
+                case 4:
+                    RunUserMenus();
+                    return;
+                default:
+                    UserInterface.DisplayUserOptions("Input not accepted please try again");
+                    return;
+            }
+        }
+
+        private void RunSearch()
+        {
+            Console.Clear();
+            var animals = SearchForAnimal().ToList();
+            if (animals.Count > 1)
+            {
+                UserInterface.DisplayUserOptions("Several animals found");
+                UserInterface.DisplayAnimals(animals);
+            }
+            else if(animals.Count == 0)
+            {
+                UserInterface.DisplayUserOptions("No animals found please try another search");
+            }
+            else
+            {
+                UserInterface.DisplayAnimalInfo(animals[0]);
+            }
+            UserInterface.DisplayUserOptions("Press enter to continue");
+            Console.ReadLine();
         }
 
         private void CheckIfAccountComplete()
