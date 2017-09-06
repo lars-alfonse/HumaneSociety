@@ -80,6 +80,21 @@ namespace HumaneSociety
             }
         }
 
+        internal static int GetIntegerData()
+        {
+            try
+            {
+                int data = int.Parse(Console.ReadLine());
+                return data;
+            }
+            catch
+            {
+                Console.Clear();
+                DisplayUserOptions("Incorrect input please enter an integer number.");
+                return GetIntegerData();
+            }
+        }
+
         public static int GetIntegerData(string parameter, string target)
         {
             try
@@ -92,6 +107,26 @@ namespace HumaneSociety
                 Console.Clear();
                 DisplayUserOptions("Incorrect input please enter an integer number.");
                 return GetIntegerData(parameter, target);
+            }
+        }
+
+         public static void DisplayAnimalInfo(Animal animal)
+        {
+            List<string> info = new List<string>() {animal.name, animal.age + "years old", "Demeanour: " + animal.demeanor, "Kid friendly: " + BoolToYesNo(animal.kidFriendly), "pet friendly: " + BoolToYesNo(animal.petFriendly), $"Location: {animal.Room.name} in {animal.Room.building}", "Weight: " + animal.weight.ToString(),  "Food amoumnt:" + animal.DietPlan.amount};
+            DisplayUserOptions(info);
+            Console.ReadLine();
+
+        }
+
+        private static string BoolToYesNo(bool? input)
+        {
+            if (input == true)
+            {
+                return "yes";
+            }
+            else
+            {
+                return "no";
             }
         }
     }

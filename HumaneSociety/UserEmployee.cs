@@ -43,10 +43,10 @@ namespace HumaneSociety
                     RemoveAnimal();
                     RunUserMenus();
                     return;
-                //case "3":
-                //    CheckAnimalStatus();
-                //    RunUserMenus();
-                //    return;
+                case "3":
+                    CheckAnimalStatus();
+                    RunUserMenus();
+                    return;
                 //case "4":
                 //    CheckAdoptions();
                 //    RunUserMenus();
@@ -56,6 +56,84 @@ namespace HumaneSociety
                     RunUserMenus();
                     return;
             }
+        }
+
+        private void CheckAnimalStatus()
+        {
+            Console.Clear();
+            var animals = SearchForAnimal().ToList();
+            if(animals.Count > 1)
+            {
+                UserInterface.DisplayUserOptions("Several animals found");
+                UserInterface.DisplayAnimals(animals);
+                UserInterface.DisplayUserOptions("Enter the ID of the animal you would like to check");
+                int ID = UserInterface.GetIntegerData();
+                CheckAnimalStatus(ID);
+                return;
+            }
+            if(animals.Count == 0)
+            {
+                UserInterface.DisplayUserOptions("Animal not found please use different search criteria");
+                return;
+            }
+            RunCheckMenu(animals[0]);
+        }
+
+        private void RunCheckMenu(Animal animal)
+        {
+            bool isFinished = false;
+            Console.Clear();
+            while(!isFinished){
+                List<string> options = new List<string>() { "Animal found:", animal.name, animal.Breed1.Species1.species, animal.Breed1.breed1, animal.Breed1.pattern, "Would you like to:", "1. Get Info", "2. Update Info", "3. Check shots", "4. Return" };
+                UserInterface.DisplayUserOptions(options);
+                int input = UserInterface.GetIntegerData();
+                if (input == 4)
+                {
+                    isFinished = true;
+                    continue;
+                }
+                RunCheckMenuInput(input, animal);
+            }
+        }
+
+        private void RunCheckMenuInput(int input, Animal animal)
+        {
+            
+            switch (input)
+            {
+                case 1:
+                    UserInterface.DisplayAnimalInfo(animal);
+                    Console.Clear();
+                    return;
+                case 2:
+                    Console.Clear();
+                    return;
+                case 3:
+                    Console.Clear();
+                    return;
+                default:
+                    UserInterface.DisplayUserOptions("Input not accepted please select a menu choice");
+                    return;
+            }
+        }
+
+        private void CheckAnimalStatus(int iD)
+        {
+            Console.Clear();
+            var animals = SearchForAnimal(iD).ToList();
+            if (animals.Count == 0)
+            {
+                UserInterface.DisplayUserOptions("Animal not found please use different search criteria");
+                return;
+            }
+            RunCheckMenu(animals[0]);
+        }
+
+        private IQueryable<Animal> SearchForAnimal(int iD)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+             var animals = (from data in context.Animals where data.ID == iD select data);
+            return animals;
         }
 
         private void RemoveAnimal()
@@ -122,6 +200,14 @@ namespace HumaneSociety
             if (searchParameters.ContainsKey(8))
             {
                 animals = (from data in animals where data.weight == int.Parse(searchParameters[8]) select data);
+            }
+            if (searchParameters.ContainsKey(8))
+            {
+                animals = (from data in animals where data.weight == int.Parse(searchParameters[8]) select data);
+            }
+            if (searchParameters.ContainsKey(9))
+            {
+                animals = (from data in animals where data.ID == int.Parse(searchParameters[9]) select data);
             }
             return animals;
         }
