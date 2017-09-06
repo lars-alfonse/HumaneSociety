@@ -77,6 +77,13 @@ namespace HumaneSociety
             return currentBreed.ID;
         }
 
+        internal static IQueryable<ClientAnimalJunction> GetUserAdoptionStatus(Client client)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var adoptions = from data in context.ClientAnimalJunctions where data.client == client.ID select data;
+            return adoptions;
+        }
+
         public static void Adopt(Animal animal, Client client)
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();

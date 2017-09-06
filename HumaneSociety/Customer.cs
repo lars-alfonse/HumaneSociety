@@ -70,11 +70,32 @@ namespace HumaneSociety
                     RunUserMenus();
                     return;
                 case 4:
+                    CheckAdoptionStatus();
                     RunUserMenus();
                     return;
                 default:
                     UserInterface.DisplayUserOptions("Input not accepted please try again");
                     return;
+            }
+        }
+
+        private void CheckAdoptionStatus()
+        {
+            var pendingAdoptions = Query.GetUserAdoptionStatus(client).ToList();
+            if (pendingAdoptions.Count == 0)
+            {
+                UserInterface.DisplayUserOptions("No adoptions currently pending");
+            }
+            else
+            {
+                List<string> Adoptions = new List<string>();
+                foreach(ClientAnimalJunction junction in pendingAdoptions)
+                {
+                    Adoptions.Add(junction.Animal1.name + " " + junction.Animal1.Breed1.breed1 + " " + junction.approvalStatus);
+                }
+                UserInterface.DisplayUserOptions(Adoptions);
+                UserInterface.DisplayUserOptions("press enter to continue");
+                Console.ReadLine();
             }
         }
 
