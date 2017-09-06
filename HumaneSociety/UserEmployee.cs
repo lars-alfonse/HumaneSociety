@@ -106,6 +106,7 @@ namespace HumaneSociety
                     Console.Clear();
                     return;
                 case 2:
+                    UpdateAnimal(animal);
                     Console.Clear();
                     return;
                 case 3:
@@ -114,6 +115,22 @@ namespace HumaneSociety
                 default:
                     UserInterface.DisplayUserOptions("Input not accepted please select a menu choice");
                     return;
+            }
+        }
+
+        private void UpdateAnimal(Animal animal)
+        {
+            Dictionary<int, string> updates = new Dictionary<int, string>();
+            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Species", "2. Breed", "3. Name", "4. Age", "5. Demeanor", "6. Kid friendly", "7. Pet friendly", "8. Weight", "9. Finished" };
+            UserInterface.DisplayUserOptions(options);
+            string input = UserInterface.GetUserInput();
+            if(input.ToLower() == "9" ||input.ToLower() == "finished")
+            {
+                Query.EnterUpdate(animal, updates);
+            }
+            else
+            {
+                updates = CustomerInterface.EnterSearchCriteria(updates, input);
             }
         }
 
@@ -160,70 +177,6 @@ namespace HumaneSociety
                 Query.RemoveAnimal(animal);
             }
         }
-
-        private IQueryable<Animal> SearchForAnimal()
-        {
-            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
-            var animals = from data in context.Animals select data;
-
-            var searchParameters = GetAnimalCriteria();
-            if (searchParameters.ContainsKey(1))
-            {
-                animals = (from data in animals where data.Breed1.Species1.species == searchParameters[1] select data);
-            }
-            if (searchParameters.ContainsKey(2))
-            {
-                animals = (from data in animals where data.Breed1.breed1 == searchParameters[2] select data);
-            }
-            if (searchParameters.ContainsKey(3))
-            {
-                animals = (from data in animals where data.name == searchParameters[3] select data);
-            }
-            if (searchParameters.ContainsKey(4))
-            {
-                animals = (from data in animals where data.age == int.Parse(searchParameters[4]) select data);
-            }
-            if (searchParameters.ContainsKey(5))
-            {
-                animals = (from data in animals where data.demeanor == searchParameters[5] select data);
-            }
-            if (searchParameters.ContainsKey(6))
-            {
-                bool parameter = GetBoolParamater(searchParameters[6]);
-                animals = (from data in animals where data.kidFriendly == parameter select data);
-            }
-            if (searchParameters.ContainsKey(7))
-            {
-                bool parameter = GetBoolParamater(searchParameters[7]);
-                animals = (from data in animals where data.petFriendly == parameter select data);
-            }
-            if (searchParameters.ContainsKey(8))
-            {
-                animals = (from data in animals where data.weight == int.Parse(searchParameters[8]) select data);
-            }
-            if (searchParameters.ContainsKey(8))
-            {
-                animals = (from data in animals where data.weight == int.Parse(searchParameters[8]) select data);
-            }
-            if (searchParameters.ContainsKey(9))
-            {
-                animals = (from data in animals where data.ID == int.Parse(searchParameters[9]) select data);
-            }
-            return animals;
-        }
-
-        private bool GetBoolParamater(string input)
-        {
-            if (input.ToLower() == "true")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         private void AddAnimal()
         {
             Console.Clear();

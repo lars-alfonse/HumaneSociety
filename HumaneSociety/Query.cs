@@ -101,6 +101,58 @@ namespace HumaneSociety
             return currentRoom;
 
         }
+
+        internal static void EnterUpdate(Animal animal, Dictionary<int, string> updates)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var currentAnimal = (from data in context.Animals where data.ID == animal.ID select data).First();
+            if (updates.ContainsKey(1))
+            {
+                currentAnimal.Breed1.Species1.species = updates[1];
+            }
+            if (updates.ContainsKey(2))
+            {
+                currentAnimal.Breed1.breed1 = updates[2];
+            }
+            if (updates.ContainsKey(3))
+            {
+                currentAnimal.name = updates[3];
+            }
+            if (updates.ContainsKey(4))
+            {
+                currentAnimal.age = int.Parse(updates[4]);
+            }
+            if (updates.ContainsKey(5))
+            {
+                currentAnimal.demeanor = updates[5];
+            }
+            if (updates.ContainsKey(6))
+            {
+                bool parameter = GetBoolParamater(updates[6]);
+                currentAnimal.kidFriendly = parameter;
+            }
+            if (updates.ContainsKey(7))
+            {
+                bool parameter = GetBoolParamater(updates[7]);
+                currentAnimal.petFriendly = parameter;
+            }
+            if (updates.ContainsKey(8))
+            {
+                currentAnimal.weight =int.Parse(updates[8]);
+            }
+            context.SubmitChanges();
+        }
+        private static bool GetBoolParamater(string input)
+        {
+            if (input.ToLower() == "true")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static IQueryable<Client> RetrieveClients()
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
