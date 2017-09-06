@@ -47,14 +47,50 @@ namespace HumaneSociety
                     CheckAnimalStatus();
                     RunUserMenus();
                     return;
-                //case "4":
-                //    CheckAdoptions();
-                //    RunUserMenus();
-                //    return;
+                case "4":
+                    CheckAdoptions();
+                    RunUserMenus();
+                    return;
                 default:
                     UserInterface.DisplayUserOptions("Input not accepted please try again");
                     RunUserMenus();
                     return;
+            }
+        }
+
+        private void CheckAdoptions()
+        {
+            Console.Clear();
+            List<string> adoptionInfo = new List<string>();
+            int counter = 1;
+            var adoptions = Query.GetPendingAdoptions().ToList();
+            if(adoptions.Count > 0)
+            {
+                foreach(ClientAnimalJunction data in adoptions)
+                {
+                    adoptionInfo.Add($"{counter}. {data.Client1.firstName} {data.Client1.lastName}, {data.Animal1.name} {data.Animal1.Breed1}");
+                    counter++;
+                }
+                UserInterface.DisplayUserOptions(adoptionInfo);
+                UserInterface.DisplayUserOptions("Enter the number of the adoption you would like to approve");
+                int input = UserInterface.GetIntegerData();
+                ApproveAdoption(adoptions[input - 1]);
+            }
+
+        }
+
+        private void ApproveAdoption(ClientAnimalJunction clientAnimalJunction)
+        {
+            UserInterface.DisplayAnimalInfo(clientAnimalJunction.Animal1);
+            UserInterface.DisplayClientInfo(clientAnimalJunction.Client1);
+            UserInterface.DisplayUserOptions("Would you approve this adoption?");
+            if ((bool)UserInterface.GetBitData())
+            {
+                Query.UpdateAdoption(true, clientAnimalJunction);
+            }
+            else
+            {
+                Query.UpdateAdoption(false, clientAnimalJunction);
             }
         }
 
@@ -110,12 +146,39 @@ namespace HumaneSociety
                     Console.Clear();
                     return;
                 case 3:
+                    CheckShots(animal);
                     Console.Clear();
                     return;
                 default:
                     UserInterface.DisplayUserOptions("Input not accepted please select a menu choice");
                     return;
             }
+        }
+
+        private void CheckShots(Animal animal)
+        {
+            List<string> shotInfo = new List<string>();
+            var shots = Query.GetShots(animal);
+            foreach(AnimalShotJunction shot in shots.ToList())
+            {
+                shotInfo.Add($"{shot.Shot.name} Date: {shot.dateRecieved}");
+            }
+            if(shotInfo.Count > 0)
+            {
+                UserInterface.DisplayUserOptions(shotInfo);
+                if(UserInterface.GetBitData("Would you like to Update shots?"))
+                {
+                    Query.UpdateShot("booster", animal);
+                }
+            }
+            else
+            {
+                if (UserInterface.GetBitData("Would you like to Update shots?"))
+                {
+                    Query.UpdateShot("booster", animal);
+                }
+            }
+            
         }
 
         private void UpdateAnimal(Animal animal)

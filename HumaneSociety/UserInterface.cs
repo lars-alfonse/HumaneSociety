@@ -58,6 +58,18 @@ namespace HumaneSociety
                 return false;
             }
         }
+        public static bool? GetBitData()
+        {
+            string input = GetUserInput();
+            if (input.ToLower() == "yes" || input.ToLower() == "y")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         internal static bool? GetBitData(string target, string parameter)
         {
             DisplayUserOptions($"Is {target} {parameter}?");
@@ -110,7 +122,14 @@ namespace HumaneSociety
             }
         }
 
-         public static void DisplayAnimalInfo(Animal animal)
+        internal static void DisplayClientInfo(Client client)
+        {
+            List<string> info = new List<string>() { client.firstName, client.lastName, client.email, "Number of kids: " + client.kids.ToString(), "Home size: " + client.homeSize.ToString(), "Income: " + client.income.ToString(), client.UserAddress1.USState1.name };
+            DisplayUserOptions(info);
+            Console.ReadLine();
+        }
+
+        public static void DisplayAnimalInfo(Animal animal)
         {
             List<string> info = new List<string>() {animal.name, animal.age + "years old", "Demeanour: " + animal.demeanor, "Kid friendly: " + BoolToYesNo(animal.kidFriendly), "pet friendly: " + BoolToYesNo(animal.petFriendly), $"Location: {animal.Room.name} in {animal.Room.building}", "Weight: " + animal.weight.ToString(),  "Food amoumnt:" + animal.DietPlan.amount};
             DisplayUserOptions(info);
@@ -127,6 +146,20 @@ namespace HumaneSociety
             else
             {
                 return "no";
+            }
+        }
+
+        internal static bool GetBitData(string option)
+        {
+            DisplayUserOptions(option);
+            string input = GetUserInput();
+            if (input.ToLower() == "yes" || input.ToLower() == "y")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

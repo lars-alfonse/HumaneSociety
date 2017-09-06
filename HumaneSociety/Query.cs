@@ -51,6 +51,14 @@ namespace HumaneSociety
             updateEmployee.userName = employee.userName;
             context.SubmitChanges();
         }
+
+        internal static IQueryable<ClientAnimalJunction> GetPendingAdoptions()
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var animals = from data in context.ClientAnimalJunctions where data.approvalStatus == "pending" select data;
+            return animals;
+        }
+
         internal static int? GetBreed()
         {
             HumaneSocietyDataContext context = new HumaneSocietyDataContext();
@@ -67,6 +75,24 @@ namespace HumaneSociety
             context.SubmitChanges();
             var currentBreed = (from data in context.Breeds where data.breed1 == breed.breed1 && data.Species1.species == breed.Species1.species && data.pattern == breed.pattern select data).First();
             return currentBreed.ID;
+        }
+
+        internal static void UpdateAdoption(bool isApproved, ClientAnimalJunction junction)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var currentJunction = (from data in context.ClientAnimalJunctions where data.animal == junction.animal && data.client == junction.client select data).First();
+            var currentAnimal = (from data in context.Animals where data.ID == junction.animal select data).First();
+            if (isApproved)
+            {
+                currentJunction.approvalStatus = "approved";
+                currentAnimal.adoptionStatus = "adopted";
+                UserInterface.DisplayUserOptions("transferring adoption fee from adopter");
+            }
+            else
+            {
+                currentJunction.approvalStatus = "denied";
+            }
+            context.SubmitChanges();
         }
 
         public static void RemoveAnimal(Animal animal)
@@ -100,6 +126,16 @@ namespace HumaneSociety
             var currentRoom = (from data in context.Rooms where data.name == room.name && data.building == room.building select data.ID).First();
             return currentRoom;
 
+        }
+
+        internal static void UpdateShot(string v, Animal animal)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void UpdateShot(string v)
+        {
+            throw new NotImplementedException();
         }
 
         internal static void EnterUpdate(Animal animal, Dictionary<int, string> updates)
@@ -152,6 +188,12 @@ namespace HumaneSociety
             {
                 return false;
             }
+        }
+        public static IQueryable<AnimalShotJunction> GetShots(Animal animal)
+        {
+            HumaneSocietyDataContext context = new HumaneSocietyDataContext();
+            var shots = (from data in context.AnimalShotJunctions where data.Animal_ID == animal.ID select data);
+            return shots;
         }
         public static IQueryable<Client> RetrieveClients()
         {
